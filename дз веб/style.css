@@ -1,0 +1,24 @@
+.сenter
+{
+    text-align: center;
+}
+
+.acenter
+{
+    text-align: center;
+}
+
+.fcenter
+{
+    text-align: center;
+}
+
+.item
+{
+    list-style-type: none;
+}
+
+.body
+{
+    background-color: rgb(173, 145, 252);
+}
