@@ -1,0 +1,23 @@
+.hr-line{
+    margin: 20px 0;
+	padding: 0;
+	height: 0;
+	border: none;
+	border-top: 1px solid #333;
+}
+
+.image {
+    height: 440px;
+    margin-left: 40px;
+}
+body {
+    margin-left: 40px;
+    margin-right: 40px;
+}
+.rights {
+    position: center;
+}
+
+.footer-end{    
+    position: relative;
+}
