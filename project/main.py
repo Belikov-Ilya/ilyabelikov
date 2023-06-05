@@ -41,7 +41,7 @@ class LoginWindow(QWidget):
         self.input_username = QLineEdit()
         self.label_password = QLabel('Пароль')
         self.input_password = QLineEdit()
-        self.input_password.setEchoMode(QLineEdit.Password)  # Скрытие введенного пароля
+        self.input_password.setEchoMode(QLineEdit.Password)
 
         self.button_login = QPushButton('Войти')
         self.button_back = QPushButton('Назад')
@@ -384,6 +384,8 @@ class LCHWindow(QWidget):
         self.button9 = QPushButton('Марсель')
         self.button10 = QPushButton('Записать исход матча')
 
+        self.button10.clicked.connect(self.open_save_window3)
+
         layout = QVBoxLayout()
         layout.addWidget(self.button1)
         layout.addWidget(self.button2)
@@ -396,6 +398,55 @@ class LCHWindow(QWidget):
         layout.addWidget(self.button9)
         layout.addWidget(self.button10)
         self.setLayout(layout)
+
+    def open_save_window3(self):
+        self.save_window = SaveWindow3()
+        self.save_window.show()
+
+
+
+class SaveWindow3(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle('Сохранить')
+
+        self.label_team1 = QLabel('Команда 1')
+        self.input_team1 = QLineEdit()
+        self.label_team2 = QLabel('Команда 2')
+        self.input_team2 = QLineEdit()
+        self.label_result = QLabel('Результат')
+        self.input_result = QLineEdit()
+
+        self.button_save = QPushButton('Сохранить')
+
+        layout = QVBoxLayout()
+        layout.addWidget(self.label_team1)
+        layout.addWidget(self.input_team1)
+        layout.addWidget(self.label_team2)
+        layout.addWidget(self.input_team2)
+        layout.addWidget(self.label_result)
+        layout.addWidget(self.input_result)
+        layout.addWidget(self.button_save)
+        self.setLayout(layout)
+
+        self.button_save.clicked.connect(self.save_match_result3)
+
+    def save_match_result3(self):
+        team1 = self.input_team1.text()
+        team2 = self.input_team2.text()
+        result = self.input_result.text()
+
+        conn = sqlite3.connect('database.db')
+        c = conn.cursor()
+
+        c.execute("CREATE TABLE IF NOT EXISTS lch_results (team1 TEXT, team2 TEXT, result TEXT)")
+        c.execute("INSERT INTO lch_results VALUES (?, ?, ?)", (team1, team2, result))
+
+        conn.commit()
+        conn.close()
+
+        self.close()
+
 
 
 class BLWindow(QWidget):
@@ -414,6 +465,8 @@ class BLWindow(QWidget):
         self.button9 = QPushButton('Вольфсбург')
         self.button10 = QPushButton('Записать исход матча')
 
+        self.button10.clicked.connect(self.open_save_window4)
+
         layout = QVBoxLayout()
         layout.addWidget(self.button1)
         layout.addWidget(self.button2)
@@ -426,6 +479,54 @@ class BLWindow(QWidget):
         layout.addWidget(self.button9)
         layout.addWidget(self.button10)
         self.setLayout(layout)
+
+    def open_save_window4(self):
+        self.save_window = SaveWindow4()
+        self.save_window.show()
+
+class SaveWindow4(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle('Сохранить')
+
+        self.label_team1 = QLabel('Команда 1')
+        self.input_team1 = QLineEdit()
+        self.label_team2 = QLabel('Команда 2')
+        self.input_team2 = QLineEdit()
+        self.label_result = QLabel('Результат')
+        self.input_result = QLineEdit()
+
+        self.button_save = QPushButton('Сохранить')
+
+        layout = QVBoxLayout()
+        layout.addWidget(self.label_team1)
+        layout.addWidget(self.input_team1)
+        layout.addWidget(self.label_team2)
+        layout.addWidget(self.input_team2)
+        layout.addWidget(self.label_result)
+        layout.addWidget(self.input_result)
+        layout.addWidget(self.button_save)
+        self.setLayout(layout)
+
+        self.button_save.clicked.connect(self.save_match_result4)
+
+    def save_match_result4(self):
+        team1 = self.input_team1.text()
+        team2 = self.input_team2.text()
+        result = self.input_result.text()
+
+        conn = sqlite3.connect('database.db')
+        c = conn.cursor()
+
+        c.execute("CREATE TABLE IF NOT EXISTS bl_results (team1 TEXT, team2 TEXT, result TEXT)")
+        c.execute("INSERT INTO bl_results VALUES (?, ?, ?)", (team1, team2, result))
+
+        conn.commit()
+        conn.close()
+
+        self.close()
+
+
 
 
 
